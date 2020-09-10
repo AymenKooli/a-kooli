@@ -17,9 +17,10 @@ image:
   preview_only: false
 ---
 # Description
-## 500 points (6 solves)
-## nc signit.fword.wtf 1337
+### 500 points (6 solves)
+### nc signit.fword.wtf 1337
 **Author:** `KOOLI`
+
 
 # Overview
 
@@ -124,3 +125,15 @@ def main():
 if __name__ == '__main__':
 	main()
 ```
+
+Okay, from the source code we can see that the server is using the **NIST Curve P-192** and **der** encoded signatures for each command.
+Our goal is clear; we need to sign the command `cat flag.txt` in order to execute it on the server. But to do that we need to recover the Private Key :( !
+
+Digging more into the source code we can spot the ephemere_key() implementation used to sign the commands `ls` and `cat run.py`:
+
+```python
+def ephemere_key(self):
+		return self.nonce ^ randrange(1, 2**150)
+```
+
+The nonce being ~ 192 bits long, the ephemere_key will always have the 42 MSBs fixed!
