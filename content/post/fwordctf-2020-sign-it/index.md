@@ -160,7 +160,13 @@ From this [article](https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-ca
 
 # Exploitation
 
+What we need to do is:
+- [x] Store 6 commands with their signatures.
+- [x] Crack potentiel keys using LLL.
+- [x] Recovering the correct private key.
+- [x] Execute any command we want!
 
+![](Signit-3.png)
 
 ```python
 #!/usr/bin/python3
@@ -291,7 +297,8 @@ new_matrix = olll.reduction(matrix, 0.75)
 keys = crack_potential_keys(new_matrix, msgn, rn, sn, n)
 privkey , pubkey = recover_keys(keys, p)
 while True:
-	command = input("Command: ").decode().strip()
+	command = input("Command: ").strip()
 	execute_command(privkey, pubkey, command, p)
 ```
 
+## FLAG: FwordCTF{now_go_and_hack_some_bitcoin}
