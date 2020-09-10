@@ -127,7 +127,7 @@ if __name__ == '__main__':
 ```
 
 Okay, from the source code we can see that the server is using the **NIST Curve P-192** and **der** encoded signatures for each command.
-Our goal is clear; we need to sign the command `cat flag.txt` in order to execute it on the server. But to do that we need to recover the Private Key :( !
+Our goal is clear; we need to sign the command `cat flag.txt` in order to execute it on the server. But to do that we need to recover the Private Key  :pensive: !
 
 Digging more into the source code we can spot the ephemere_key() implementation used to sign the commands `ls` and `cat run.py`:
 
@@ -140,6 +140,9 @@ The nonce being ~ 192 bits long, the ephemere_key will always have the 42 MSBs f
 
 We know that:
 
-s1 = $k1^{-1}
+$$s_1 = k_1^-1 (m_1 +xr_1)$$
+$$s_2 = k2^-1 (m_2 +xr_2)$$
+...
+$$s_n = k_n^-1 (m_n +xr_n)$$
 
 From this [article](https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-care/), We will only need 6 signatures in order 
