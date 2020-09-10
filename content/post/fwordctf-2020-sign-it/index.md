@@ -8,7 +8,7 @@ tags:
   - Cryptography
   - ECDSA
   - Signatures
-  - Private Key
+  - Private Key Recovery
   - Nonce
   - Biais
 image:
@@ -24,3 +24,11 @@ image:
 # Overview
 
  ![](signit-1.png)
+ 
+ Connecting to the provided nc service we can see we have two possibilities:
+ 1. See available commands:
+  - ls
+  - cat run.py
+2. Execute command:
+  - ls :
+    - `flag.txt` `run.py`
