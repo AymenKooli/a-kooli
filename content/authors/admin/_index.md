@@ -1,11 +1,12 @@
 ---
 organizations:
-  - name: National Institute of Applied Sciences and Technology
+  - name: INSAT
 superuser: true
 authors:
   - admin
 title: Aymen KOOLI
-role: Networking and Telecommunications engineering student
+role: Networking and Telecommunications
+avatar_filename: profile.png
 bio: Cyber Security Enthusiast
 interests:
   - Cryptography
@@ -18,13 +19,10 @@ social:
     link: "#contact"
   - icon: twitter
     icon_pack: fab
-    link: https://twitter.com/GeorgeCushen
-  - icon: google-scholar
-    icon_pack: ai
-    link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
-  - icon: github
+    link: https://twitter.com/KOOLIAymen
+  - link: https://www.linkedin.com/in/aymenkooli/
     icon_pack: fab
-    link: https://github.com/gcushen
+    icon: linkedin
 education:
   courses:
     - institution: National Institute of Applied Sciences and Technology
@@ -32,7 +30,7 @@ education:
       year: 2022
     - course: DALF C1
       institution: IFT
-      year: 2018
+      year: 2017
 email: ""
 user_groups:
   - ""
