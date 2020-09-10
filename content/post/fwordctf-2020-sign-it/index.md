@@ -144,12 +144,12 @@ $$s_1 = k_1^{-1} (m_1 +xr_1)$$
 $$s_2 = k_2^{-1} (m_2 +xr_2)$$
 $$...$$
 $$s_n = k_n^{-1} (m_n +xr_n)$$
-$$s_1 k_1 = m_1 + xr_1 and s_n k_n = m_n + xr_n$$
-$$k_1 = s_1^{-1}(m_1 + xr_1) and k_n = s_n^{-1}(m_n+xr_n)$$
+$$s_1 k_1 = m_1 + xr_1$$   and   $$s_n k_n = m_n + xr_n$$
+$$k_1 = s_1^{-1}(m_1 + xr_1)$$   and   $$k_n = s_n^{-1}(m_n+xr_n)$$
 $$k_1 - k_n = s_1^{-1}(m_1 +xr_1) - s_n^{-1}(m_n + xr_n)$$
 $$s_1 s_n (k_1 - k_n) = s_n (m_1 + xr_1) - s_1^{-1} (m_n +x r_n)$$
 $$s_1 s_n (k_1 - k_n) = x s_n r_1 - x s_1 r_n +s_n m_1 -s_1 m_n$$
 $$x(s_1 r_n - s_n r_1) = s_n m_1 -s_1 m_n -s_1 s_n (k_1 -k_n)$$
 $$x = (r_n s_1 - r_1 s_n)^{-1} (s_n m_1 - s_1 m_n - s_1 s_n (k_1 - k_n))$$
 
-From this [article](https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-care/), We will only need 6 signatures in order 
+From this [article](https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-care/), using `LLL` we can successfully recover  
