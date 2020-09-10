@@ -45,10 +45,10 @@ local_business_type = ""
 
 # Organization name (optional)
 # Enter an organization or project name. Defaults to the site title from `config.toml`.
-org_name = ""
+org_name = "KOOLI's Personnal Blog & Writeups"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description = ""
+description = "A blog by KOOLI where you can find CTF writeups mainly in Cryptography."
 
 ############################
 ## Site Features
