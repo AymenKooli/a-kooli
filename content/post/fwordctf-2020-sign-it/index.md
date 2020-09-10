@@ -136,4 +136,10 @@ def ephemere_key(self):
 		return self.nonce ^ randrange(1, 2**150)
 ```
 
-The nonce being ~ 192 bits long, the ephemere_key will always have the 42 MSBs fixed!
+The nonce being ~ 192 bits long, the ephemere_key will always have the 42 MSBs fixed! Bingo! That must be the vulnerability we need to exploit in order to recover the private key.
+
+We know that:
+
+s1 = $k1^{-1}
+
+From this [article](https://blog.trailofbits.com/2020/06/11/ecdsa-handle-with-care/), We will only need 6 signatures in order 
