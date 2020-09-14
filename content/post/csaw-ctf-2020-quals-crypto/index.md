@@ -485,6 +485,7 @@ print part
 > Hint: The administrators are always taught that sharing is caring when first onboarded.
 
 I have found this challenge really guessy and the admins only released the source code after a lot of time. :weary:
+
 We had a list of admins in database.txt:
 ```
 Jere:
