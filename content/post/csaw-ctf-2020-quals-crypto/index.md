@@ -349,7 +349,7 @@ Since we don't know the secret length the server is using we need to brute force
 
 ![](adv.png)
 
-In this task we have 21 ciphertext encrypted using this code:
+In this task we have 21 ciphertexts encrypted using this code:
 ```python
 #!/usr/bin/env python2
 
