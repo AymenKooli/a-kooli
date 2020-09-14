@@ -36,7 +36,8 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
 >  3. The guard want's a legible message they can read in!
   
 From the challenge's title we can guess that this is going to be about **[bifid cipher]**(https://en.wikipedia.org/wiki/Bifid_cipher). We will need to decode the message give: `snbwmuotwodwvcywfgmruotoozaiwghlabvuzmfobhtywftopmtawyhifqgtsiowetrksrzgrztkfctxnrswnhxshylyehtatssukfvsnztyzlopsv` using a key from the ramblings given:
-`Mr. Jock, TV quiz PhD., bags few lynx
+```
+Mr. Jock, TV quiz PhD., bags few lynx
 Two driven jocks help fax my big quiz.
 Jock nymphs waqf drug vex blitz
 Fickle jinx bog dwarves spy math quiz.
@@ -72,5 +73,5 @@ Cozy lummox gives smart squid who asks for job pen.
 zyxwvutsrqponmlkjihgfedcba
 Few black taxis drive up major roads on quiet hazy nights.
 a quick brown fx jmps ve th lzy dg
-Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!`
+Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!```
 
