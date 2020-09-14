@@ -27,6 +27,8 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
   - [x] adversarial
   - [x] smallsurp
 
+> The first task is just XORing two images together so I'll pass on that
+
 # difib
 ![](difib.png)
 
@@ -475,7 +477,7 @@ for c in ciphers:
 print part
 ```
 
-### FLAG flag{m1ss1on_acc00mpl11shheedd!!}
+### FLAG: flag{m1ss1on_acc00mpl11shheedd!!}
 
 # smallsurp
 ![](small.png)
