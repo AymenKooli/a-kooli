@@ -7,6 +7,6 @@ featured: false
 image:
   filename: c.png
   focal_point: Smart
-  preview_only: false
+  preview_only: true
 ---
 C
