@@ -331,7 +331,7 @@ The first two parameters can be easily exploited with url encoding:
 
 The entrynum is set after the info update so we will use [hash_extender](https://github.com/iagox86/hash_extender) to append entrynum=7 in our payload.
 ```python
-info = {"admin": "False", "access_sensitive": "False" }
+        info = {"admin": "False", "access_sensitive": "False" }
         info.update(payload)
         info["entrynum"] = 783
 ```
@@ -342,3 +342,137 @@ Since we don't know the secret length the server is using we need to brute force
 ### FLAG: flag{h4ck_th3_h4sh}
 
 # adversarial
+
+![](adv.png)
+
+In this task we have 21 ciphertext encrypted using this code:
+```python
+#!/usr/bin/env python2
+
+import os
+
+import Crypto.Cipher.AES
+import Crypto.Util.Counter
+
+from Messager import send
+
+
+KEY = os.environ['key']
+IV = os.environ['iv']
+
+secrets = open('/tmp/exfil.txt', 'r')
+
+for pt in secrets:
+    # initialize our counter
+    ctr = Crypto.Util.Counter.new(128, initial_value=long(IV.encode("hex"), 16))
+
+    # create our cipher
+    cipher = Crypto.Cipher.AES.new(KEY, Crypto.Cipher.AES.MODE_CTR, counter=ctr)
+
+    # encrypt the plaintext
+    ciphertext = cipher.encrypt(pt)
+
+    # send the ciphertext
+    send(ciphertext.encode("base-64"))
+```
+
+If you don't know how AES-CTR works here's a good screenshot from wikipedia. It encypts the nonce (IV) & the counter for each block with the chosen key and xors the result with the plaintext. And the exact same thing happens in decryption! And that's what makes AES-CTR a stream cipher. 
+![](adv-0.png)
+Having many ciphertexts, we only have to guess the key to xor them with to get valid plaintext! We can do this by guessing some possible chars (or words). For example we know that in english texts the most appearing char is the space. That will help is recover parts of the key, then we need to guess some gibberish words to complete our key!
+I have used a [script](https://github.com/Jwomers/many-time-pad-attack/blob/master/attack.py) from github with some modifications to do this. (script bellow)
+![](adv-1.png)
+sending `4fb81eac0729a` to the provided server will get us the flag.
+![](adv-2.png)
+
+```python
+import string
+import collections
+import sets, sys
+from base64 import b64decode
+from pwn import xor
+ciphers=[
+"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"]
+
+for c in range(len(ciphers)):
+	ciphers[c]=b64decode(ciphers[c])[64:96]
+
+# XORs two string
+def strxor(a, b):     # xor two strings (trims the longer input)
+    return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a, b)])
+
+
+# To store the final key
+final_key = [None]*400
+# To store the positions we know are broken
+known_key_positions = set()
+
+# For each ciphertext
+for current_index, ciphertext in enumerate(ciphers):
+	counter = collections.Counter()
+	# for each other ciphertext
+	for index, ciphertext2 in enumerate(ciphers):
+		if current_index != index: # don't xor a ciphertext with itself
+			for indexOfChar, char in enumerate(strxor(ciphertext, ciphertext2)): # Xor the two ciphertexts
+				# If a character in the xored result is a alphanumeric character, it means there was probably a space character in one of the plaintexts (we don't know which one)
+				if char in string.printable and char.isalpha(): counter[indexOfChar] += 1 # Increment the counter at this index
+	knownSpaceIndexes = []
+
+	# Loop through all positions where a space character was possible in the current_index cipher
+	for ind, val in counter.items():
+		# If a space was found at least 7 times at this index out of the 9 possible XORS, then the space character was likely from the current_index cipher!
+		if val >= 7: knownSpaceIndexes.append(ind)
+	#print knownSpaceIndexes # Shows all the positions where we now know the key!
+
+	# Now Xor the current_index with spaces, and at the knownSpaceIndexes positions we get the key back!
+	xor_with_spaces = xor(ciphertext,' ')
+	for index in knownSpaceIndexes:
+		# Store the key's value at the correct position
+		final_key[index] = xor_with_spaces[index]
+		# Record that we known the key at this position
+		known_key_positions.add(index)
+
+# Construct a hex key from the currently known key, adding in '00' hex chars where we do not know (to make a complete hex string)
+final_key_hex = ''.join([val if val is not None else '00' for val in final_key])
+
+final_key_hex=final_key_hex
+#After correcting words I would get
+final_key_hex="45cb256b7cf84ea046fcde1525df62379abf7b33e9409010ce3851289f51d513".decode('hex')
+
+part= '\n'
+for c in ciphers:
+	#print xor(c,final_key_hex)
+
+	target_cipher=c
+	output = strxor(target_cipher,final_key_hex)
+	print "\nFix this sentence:"
+	msg = ''.join([char if index in known_key_positions else '*' for index, char in enumerate(output)])
+	print msg + "\n"
+	part += msg +"\n"
+	# To correct some words and get a valid key
+	print final_key_hex.encode('hex')[:64]
+	print xor(c,'t there\'s a difference ').encode('hex')
+
+print part
+```
+
+### FLAG flag{m1ss1on_acc00mpl11shheedd!!}
