@@ -146,4 +146,37 @@ Connecting to the nc service we are asked to find out if the block cipher used i
 
 ![](modus-0.png)
 
-It's easy to determine if the block cipher used is ECB or CBC from the ciphertext since we control the plaintext.
+It's easy to determine if the block cipher used is ECB or CBC from the ciphertext since we control the plaintext. Since ECB mode encrypts every 16 bytes block independently, two equal plaintext blocks shall result in two equal ciphertext blocks. The problem here is when all queries answered correctly the server doesn't send the flag :frowning_face: . So we have to store our answers and convert them to binary with ECB standing for 0 and CBC standing for 1.
+
+![](modus-1.png)
+
+```python
+from pwn import remote
+from Crypto.Util.number import long_to_bytes
+
+p = remote("crypto.chal.csaw.io",5001)
+flag = ""
+p.recvline()
+for _ in range(176):
+	line = p.recvline()
+	p.sendline("A"*32)
+	data = p.recvline().strip()
+	if "Ciphertext" not in data:
+		p.interactive()
+
+	print p.recvline()
+	data=data.replace("Ciphertext is:  ","")
+	if data[:32] == data[32:64]:
+		print data, "ecb"
+		flag += "0"
+		p.sendline('ECB')
+	else:
+		print data ," cbc"
+		p.sendline('CBC')
+		flag += "1"
+print long_to_bytes(int(flag,2))
+p.close()
+```
+
+### FLAG: flag{ECB_re@lly_sUck$}
+
