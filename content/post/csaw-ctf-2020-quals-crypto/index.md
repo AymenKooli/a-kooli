@@ -25,7 +25,7 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
   - [x] modus_operandi
   - [x] authy
   - [x] adversarial
-  - [x] smallsurp
+  - [x] [smallsurp](#smallsurp)
 
 > The first task is just XORing two images together so I'll pass on that
 
@@ -479,7 +479,8 @@ print part
 
 ### FLAG: flag{m1ss1on_acc00mpl11shheedd!!}
 
-# smallsurp
+# smallsurp 
+{<smallsurp>}
 ![](small.png)
 
 > Hint: The administrators are always taught that sharing is caring when first onboarded.
