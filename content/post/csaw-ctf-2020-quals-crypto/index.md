@@ -73,5 +73,65 @@ Cozy lummox gives smart squid who asks for job pen.
 zyxwvutsrqponmlkjihgfedcba
 Few black taxis drive up major roads on quiet hazy nights.
 a quick brown fx jmps ve th lzy dg
-Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!```
+Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!
+```
+For bifid cipher, they key needs to be a perfect pangram with 25 chars long. A perfect pangram is a sentence that uses each letter of the alphabet only one time. 
+We can see in our encrypted message that the letter '***j***'  isn't used. That will help us deduce that key doesn't have the letter '***j***' . From the first hint, we have clean up the ramblings, so first of all we will remove every non-alphabetic char and the letter j. With every thing cleaned-up we will have 20 possible keys: 
+```
+mrocktvquizphdbagsfewlynx
+ocknymphswaqfdrugvexblitz
+crwthvoxzapsqigymfeldbunk
+hmfordwaltzcinqbuskpyxveg
+phavfyxbugstonqmilkzdcrew
+hesaidbcfgklmnopqrtuvwxyz
+enqvahlbidgumkrwcfpostxyz
+emilyqungschwarzkopfxtvbd
+ohnfezcamrwsputyxigkqblvd
+qtipforsuvnzxylemdcbaghwk
+umblingvextfrowzyhackspdq
+qvandzstruckmybigfoxwhelp
+lumpydrabcgqvzinksfoxthew
+heyiamnopqrstuvwxzbcdfgkl
+quizvbmwlynxstockderpaghf
+pledbigczarunksmyvwfoxthq
+waltzgbquickfordsvexnymph
+qwertyuioplkhgfdsazxcvbnm
+zyxwvutsrqponmlkihgfedcba
+aquickbrownfxmpsvethlzydg
+```
+I've tried using each one of them but none worked. Then, I tried using all the keys successively and got the message.
 
+`xustxsomexunnecessaryxtextxthatxholdsxabsolutelyxnoxmeaningxwhatsoeverxandxbearsxnoxsignificancextoxyouxinxanyxway`
+
+Cleaning up that message we will have: 
+
+`just some unnecessary text that holds absolutely no meaning whatsoever and bears no significance to you in any way`
+
+Sending that to the server gives us the flag.
+
+![](bifid-0.png)
+
+```python
+from secretpy import Bifid
+from secretpy import CryptMachine
+
+def encdec(machine, enc):
+    dec = machine.decrypt(enc)
+    print (dec)
+    print("----------------------------------")
+    return dec
+
+encrypted = "snbwmuotwodwvcywfgmruotoozaiwghlabvuzmfobhtywftopmtawyhifqgtsiowetrksrzgrztkfctxnrswnhxshylyehtatssukfvsnztyzlopsv"
+dict = open("plz","r").readlines()[::-1]
+for k in dict:
+	k = k.strip()
+	cipher = Bifid()
+	alphabet = []
+	for i in k:		
+		alphabet.append(i)
+	cm = CryptMachine(Bifid(), 5)
+	cm.set_alphabet(alphabet)
+	encrypted = encdec(cm,encrypted)
+```
+
+### Flag: flag{t0ld_y4_1t_w4s_3z}
