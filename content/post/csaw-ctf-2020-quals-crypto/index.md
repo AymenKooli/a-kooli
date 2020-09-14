@@ -30,9 +30,9 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
 # difib
 ![](difib.png)
 
-> Hints >
-  1. Length of keys is 25, which (cleaned-up) ramblings would fit that?
-  2. 
-  3.
+> Hints 
+>  1. Length of keys is 25, which (cleaned-up) ramblings would fit that?
+>  2. If near-perfect ramblings are used to encrypt in order, how should it be decrypted?
+>  3.The guard want's a legible message they can read in!
   
 From the challenge's title we can guess that this is going to be about **bifid cipher**. We will need to decode the message
