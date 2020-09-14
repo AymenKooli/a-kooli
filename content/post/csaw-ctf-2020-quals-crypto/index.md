@@ -29,8 +29,6 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
 
 > The first task is just XORing two images together so I'll pass on that
 
-<difi>
-
 # difib
 ![](difib.png)
 
@@ -140,7 +138,6 @@ for k in dict:
 
 ### Flag: flag{t0ld_y4_1t_w4s_3z}
 
-<modus_operandi>
 
 # modus_operandi
 ![](modus.png)
@@ -186,7 +183,6 @@ p.close()
 
 ### FLAG: flag{ECB_re@lly_sUck$}
 
-<authy>
 
 # authy
 ![](authy.png)
@@ -349,8 +345,6 @@ Since we don't know the secret length the server is using we need to brute force
 
 ### FLAG: flag{h4ck_th3_h4sh}
 
-<adversarial>
-
 # adversarial
 
 ![](adv.png)
@@ -487,7 +481,6 @@ print part
 
 ### FLAG: flag{m1ss1on_acc00mpl11shheedd!!}
 
-<smallsurp>
 
 # smallsurp 
 
