@@ -33,7 +33,7 @@ To be honnest, I think the tasks were poorly designed and guessy. In this articl
 > Hints 
 >  1. Length of keys is 25, which (cleaned-up) ramblings would fit that?
 >  2. If near-perfect ramblings are used to encrypt in order, how should it be decrypted?
->  3.The guard want's a legible message they can read in!
+>  3. The guard want's a legible message they can read in!
   
 From the challenge's title we can guess that this is going to be about **[bifid cipher]**(https://en.wikipedia.org/wiki/Bifid_cipher). We will need to decode the message give: `snbwmuotwodwvcywfgmruotoozaiwghlabvuzmfobhtywftopmtawyhifqgtsiowetrksrzgrztkfctxnrswnhxshylyehtatssukfvsnztyzlopsv` using a key from the ramblings given:
 `Mr. Jock, TV quiz PhD., bags few lynx
