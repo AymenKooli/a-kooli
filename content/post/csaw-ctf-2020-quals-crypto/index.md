@@ -99,7 +99,7 @@ qwertyuioplkhgfdsazxcvbnm
 zyxwvutsrqponmlkihgfedcba
 aquickbrownfxmpsvethlzydg
 ```
-I've tried using each one of them but none worked. Then, I tried using all the keys successively and got the message.
+I've tried using each one of them but none worked. Then, I tried using all the keys inverted and successively and got the message.
 
 `xustxsomexunnecessaryxtextxthatxholdsxabsolutelyxnoxmeaningxwhatsoeverxandxbearsxnoxsignificancextoxyouxinxanyxway`
 
