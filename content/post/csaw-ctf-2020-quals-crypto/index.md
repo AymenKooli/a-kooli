@@ -476,3 +476,123 @@ print part
 ```
 
 ### FLAG flag{m1ss1on_acc00mpl11shheedd!!}
+
+# smallsurp
+![](small.png)
+
+> Hint: The administrators are always taught that sharing is caring when first onboarded.
+
+I have found this challenge really guessy and the admins only released the source code after a lot of time. :weary:
+We had a list of admins in database.txt:
+```
+Jere:
+Lakisha:
+Loraine:
+Ingrid:
+Orlando:
+Berry:
+Alton:
+Bryan:
+Kathryn:
+Brigitte:
+Dannie:
+Jo:
+Leslie:
+Adrian:
+Autumn:
+Kellie:
+Alphonso:
+Joel:
+Alissa:
+Rubin:
+```
+and an encrypted "password" in encrypted.txt
+```
+cbc:254dc5ae7bb063ceaf3c2da953386948:08589c6b40ab64c434064ec4be41c9089eefc599603bc7441898c2e8511d03f6
+```
+The source code is long so I'll only mention interesting parts.
+
+First, the server is getting the password of the corresponding user and calculating a ***server_hmac***
+ ```python
+        xH = hasher(salt + str(pwd))
+        v = modular_pow(g, xH, N)
+        B = (k * v + modular_pow(g, b, N)) % N
+        u = hasher(str(A) + str(B))
+        S = modular_pow(A * modular_pow(v, u, N), b, N)
+        K = hashlib.sha256(str(S).encode()).digest()
+        flask.session["server_hmac"] = hmac_sha256(K, salt.encode())
+        return flask.jsonify(nacl=salt, token2=B)
+ ```
+Then, to connect to the dashboard at ```/dash/<user>``` the server checks if the server_hmac equals the hmac provided.
+```python
+@app.route("/dash/<user>", methods=["POST", "GET"])
+def dashboard(user):
+    if "hmac" not in flask.request.args:
+        flask.flash("Error encountered on server-side.")
+        return flask.redirect(flask.url_for("home"))
+
+    hmac = flask.request.args["hmac"]
+    servermac = flask.session.get("server_hmac", None)
+    print(hmac, servermac)
+    if hmac != servermac:
+        flask.flash("Incorrect password.")
+        return flask.redirect(flask.url_for("home"))
+
+    pwd = DATABASE[user]
+    return flask.render_template("dashboard.html", username=user, pwd=pwd)
+```
+Trying to login with the first user Jere, with any password we will get the token2 and salt and the session cookie:
+![](small-0.png)
+Using flask-usign we can retrieve back the server_hmac for Jere:
+![](small-1.png)
+With the server_hmac retrieved we can connect to Jere's dahsbord using this link http://crypto.chal.csaw.io:5005/dash/Jere?hmac=c36cf89934ae475a5bcf1487d7b82ecd14e47e1e55742262087651dee1320e89
+![](small-2.png)
+Once connected we can get Jere's password `1:c4ee528d1e7d1931e512ff263297e25c:128`
+Retrieving all users password we get:
+```
+Jere 1:c4ee528d1e7d1931e512ff263297e25c:128
+Loraine 3:7180fe06299e1774e0a18f48441efdaf:128
+Ingrid 4:48359d52540614247337a5a1191034a7:128
+Orlando 5:1fcd4a7279840854989b7ad086354b21:128
+Berry 6:f69f8e4ecde704a140705927160751d1:128
+Alton 7:b0ca40dc161b1baa61930b6b7c311c30:128
+Bryan 8:04ed6f6bf5ec8c8c2a4d18dcce04ae48:128
+Kathryn 9:430ad338b7b603d1770f94580f23cb38:128
+Brigitte 10:d51669551515b6d31ce3510de343370f:128
+Dannie 11:b303ee7908dcbc07b8e9dac7e925a417:128
+Jo 12:3c4a692ad1b13e27886e2b4893f8d761:128
+Leslie 13:a8e53ef9ee51cf682f621cb4ea0cb398:128
+Adrian 14:feb294f9380c462807bb3ea0c7402e12:128
+Autumn 15:9b2b15a72430189048dee8e9594c9885:128
+Kellie 16:f4d52e11f6f9b2a4bfbe23526160fdfd:128
+Alphonso 17:d0f902472175a3f2c47a88b3b3108bb2:128
+Joel 18:cc29eb96af9c82ab0ba6263a6e5a3768:128
+Alissa 19:913227d2d7e1a01b4ec52ff630053b73:128
+Rubin 20:8669dd2b508c2a5dfd24945f8577bd62:128
+```
+From the hint shared `The administrators are always taught that sharing is caring when first onboarded.` or with a bit of guess we will use those passwords as sharings for Shamir's secret sharing. 20 shares should be enough to retrieve back the secret.
+
+Once that secret retrieved we will used it as a key to decrypt the encrypted.txt with `CBC` as AES mode, and `254dc5ae7bb063ceaf3c2da953386948` as the IV.
+
+![](small-3.png)
+
+```python
+from Crypto.Cipher import AES
+from binascii import unhexlify
+from Crypto.Protocol.SecretSharing import Shamir
+
+shares = ['c4ee528d1e7d1931e512ff263297e25c','4b58b8b5285d2e8642a983881ed28fc7','7180fe06299e1774e0a18f48441efdaf','48359d52540614247337a5a1191034a7','1fcd4a7279840854989b7ad086354b21','f69f8e4ecde704a140705927160751d1','b0ca40dc161b1baa61930b6b7c311c30','04ed6f6bf5ec8c8c2a4d18dcce04ae48','430ad338b7b603d1770f94580f23cb38','d51669551515b6d31ce3510de343370f','b303ee7908dcbc07b8e9dac7e925a417','3c4a692ad1b13e27886e2b4893f8d761','a8e53ef9ee51cf682f621cb4ea0cb398','feb294f9380c462807bb3ea0c7402e12','9b2b15a72430189048dee8e9594c9885','f4d52e11f6f9b2a4bfbe23526160fdfd','d0f902472175a3f2c47a88b3b3108bb2','cc29eb96af9c82ab0ba6263a6e5a3768','913227d2d7e1a01b4ec52ff630053b73','8669dd2b508c2a5dfd24945f8577bd62']
+
+for i in range(20):
+	shares[i]=(i+1,int(shares[i],16))
+
+key = Shamir.combine(shares)
+print ("secret: "+key)
+
+IV= unhexlify("254dc5ae7bb063ceaf3c2da953386948")
+enc= unhexlify("08589c6b40ab64c434064ec4be41c9089eefc599603bc7441898c2e8511d03f6")
+cipher = AES.new(key,AES.MODE_CBC,IV)
+print (cipher.decrypt(enc))
+```
+
+### FLAG: flag{n0t_s0_s3cur3_4ft3r_4ll}
