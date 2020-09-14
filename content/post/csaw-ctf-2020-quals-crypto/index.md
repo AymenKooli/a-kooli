@@ -135,3 +135,15 @@ for k in dict:
 ```
 
 ### Flag: flag{t0ld_y4_1t_w4s_3z}
+
+# modus_operandi
+![](modus.png)
+
+> Hint
+> <200
+
+Connecting to the nc service we are asked to find out if the block cipher used is ECB or CBC. 
+
+![](modus-0.png)
+
+It's easy to determine if the block cipher used is ECB or CBC from the ciphertext since we control the plaintext.
