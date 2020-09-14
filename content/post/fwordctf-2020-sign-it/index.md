@@ -28,8 +28,8 @@ image:
  
  Connecting to the provided nc service we can see we have two possibilities:
  1. See available commands:
-  - ls
-  - cat run.py
+   - ls
+   - cat run.py
 2. Execute command:
    - ls :
       - `flag.txt`
