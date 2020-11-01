@@ -84,7 +84,7 @@ $$8^2 = 4^3 = 64$$
 
 Now to compute our secret d we need:
 
-$$g \equiv G.x  G^{-1} \mod{p}$$
+$$g \equiv G.x  G.y^{-1} \mod{p}$$
 $$y \equiv P.x  P.y^{-1}  \mod{p}$$
 and then:
 $$d \equiv g^{-1}  y \mod{p}$$
