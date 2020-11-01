@@ -84,12 +84,12 @@ $$8^2 = 4^3 = 64$$
 
 Now to compute our secret d we need:
 
-$$g=G.x G^{-1} (mod p)$$
-$$y=P.x P.y^{-1} (mod p)$$
+$$g \equiv G.x  G^{-1} \mod{p}$$
+$$y \equiv P.x  P.y^{-1}  \mod{p}$$
 and then:
-$$d=g^{-1} y (mod p)$$
+$$d \equiv g^{-1}  y \mod{p}$$
 
-**CODE TIME**
+{{< icon name="python" pack="fab" >}} **CODE TIME**
 ```python
 from Crypto.Util.number import inverse
 from pwn import remote
