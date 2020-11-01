@@ -122,6 +122,7 @@ p.interactive()
 ![](five.PNG)
 And Voilà we got our super creative flag!
 
-# FLAG : CSR{nomnomnomnomnomnomnom}
+# FLAG  
+***CSR{nomnomnomnomnomnomnom}***
 
 I really liked this challenge as I learned a lot spending hours of reading about invalid curves attacks! So many thanks to the authors.
