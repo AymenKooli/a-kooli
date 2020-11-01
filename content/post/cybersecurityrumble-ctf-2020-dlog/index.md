@@ -78,13 +78,16 @@ After hours of searching I came by an excellent [answer on crypto.stackexchange]
 
 ![](four.PNG)
 
-We can set b=0 to create our new invalid curve $$y^2=x^3$$ and randomly choose a point at our new curve. I chose (4,8) as 
+We can set b=0 to create our new invalid curve `y^2=x^3` and randomly choose a point at our new curve. I chose (4,8) as :
+
 $$8^2=4^^3=64$$
+
 Now to compute our secret d we need:
-$$g=G.x*G^{-1} (mod p)$$
-$$y=P.x*P.y^{-1} (mod p)$$
+
+$$g=G.x G^{-1} (mod p)$$
+$$y=P.x P.y^{-1} (mod p)$$
 and then:
-$$d=g^{-1}*y (mod p)$$
+$$d=g^{-1} y (mod p)$$
 
 **CODE TIME**
 ```python
