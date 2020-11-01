@@ -68,7 +68,7 @@ Yes! It doesn't belong to the curve so this must be a fault attack as the server
 
 # Exploitation
 
-Now we know where that server is vulnerable but how to exploit it? There are several attack using the chinese remainder theorem and chosing an invalid curve but those only succeed when the secret is static and not randomly chosen at every new connection. You can read about them [here] if you are interested. (https://blog.trailofbits.com/2018/08/01/bluetooth-invalid-curve-points/)
+Now we know where that server is vulnerable but how to exploit it? There are several attack using the chinese remainder theorem and chosing an invalid curve but those only succeed when the secret is static and not randomly chosen at every new connection. You can read about them [here](https://blog.trailofbits.com/2018/08/01/bluetooth-invalid-curve-points/) if you are interested. 
 
 After hours of searching I came by an excellent [answer on crypto.stackexchange](https://crypto.stackexchange.com/questions/61302/how-to-solve-this-ecdlp/67120#67120):
 ![](four.PNG)
