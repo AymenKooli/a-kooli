@@ -61,9 +61,13 @@ else:
 ```
 
 It's obvious here, we need to provide the randomly chosen server's secret to be able to get to the flag. Well, easier said than done.. The secp256k1 curve is known to be a secure curve as it is actually being used in bitcoin. Computing the Discrete log will be pretty hard and will take ages. Let's try to connect to nc service and give a random point:
+
 ![](two.PNG)
+
 Wait what ? How are those values accepted by the server ? I don't think the point (5,6) belongs to the curve! Double checking in sage because why not:
+
 ![](three.PNG)
+
 Yes! It doesn't belong to the curve so this must be a fault attack as the server doesn't check if the provided point is on the curve or not!
 
 # Exploitation
@@ -71,7 +75,9 @@ Yes! It doesn't belong to the curve so this must be a fault attack as the server
 Now we know where that server is vulnerable but how to exploit it? There are several attack using the chinese remainder theorem and chosing an invalid curve but those only succeed when the secret is static and not randomly chosen at every new connection. You can read about them [here](https://blog.trailofbits.com/2018/08/01/bluetooth-invalid-curve-points/) if you are interested. 
 
 After hours of searching I came by an excellent [answer on crypto.stackexchange](https://crypto.stackexchange.com/questions/61302/how-to-solve-this-ecdlp/67120#67120):
+
 ![](four.PNG)
+
 We can set b=0 to create our new invalid curve $$y^2=x^3$$ and randomly choose a point at our new curve. I chose (4,8) as 
 $$8^2=4^^3=64$$
 Now to compute our secret d we need:
