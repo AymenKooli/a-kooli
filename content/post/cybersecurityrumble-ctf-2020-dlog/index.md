@@ -30,7 +30,7 @@ p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
 secp256k1 = EllipticCurve(a, b, p)
 ```
 
-Then the server asks us to provide a point and it uses it as a generator:
+Then the server asks us to provide a point and it uses as a generator:
 
 ```python
 print("gif point to nom nom:")
